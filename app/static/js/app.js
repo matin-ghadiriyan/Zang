@@ -3,6 +3,20 @@
 const Zang = (() => {
     'use strict';
 
+    /* ---------- Loader ---------- */
+    function hideLoader() {
+        const loader = document.getElementById('zang-loader');
+        if (!loader) return;
+        loader.classList.add('is-hidden');
+        setTimeout(() => loader.remove(), 450);
+    }
+
+    if (document.readyState === 'complete') {
+        setTimeout(hideLoader, 220);
+    } else {
+        window.addEventListener('load', () => setTimeout(hideLoader, 220), { once: true });
+    }
+
     /* ---------- Toast ---------- */
     function toast(message, type = 'info', duration = 3200) {
         const container = document.getElementById('toast-container');
