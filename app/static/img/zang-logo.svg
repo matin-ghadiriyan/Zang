@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+<title id="title">لوگوی زنگ</title>
+<desc id="desc">زنگ قرمز درون حباب گفتگو با خطوط سبز</desc>
+<defs>
+  <linearGradient id="bell" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#ff3158"/>
+    <stop offset=".48" stop-color="#ef3340"/>
+    <stop offset="1" stop-color="#ff8a4c"/>
+  </linearGradient>
+  <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#00c86f"/>
+    <stop offset="1" stop-color="#20dd91"/>
+  </linearGradient>
+</defs>
+<rect width="256" height="256" rx="60" fill="#fff"/>
+<path d="M51 64c17-27 49-43 83-43 51 0 92 38 92 86 0 50-43 91-96 91-18 0-35-4-49-12l-31 18 10-35c-15-16-24-38-24-62 0-16 5-31 15-43z"
+      fill="#fff" stroke="#101010" stroke-width="10" stroke-linejoin="round"/>
+<path d="M111 76c6-10 16-16 28-16 12 0 23 6 29 16 4 6 6 14 6 22v20l13 18H91l14-18V98c0-8 2-16 6-22z"
+      fill="url(#bell)" stroke="#d62636" stroke-width="4" stroke-linejoin="round"/>
+<path d="M124 137c2 10 8 15 16 15 8 0 14-5 16-15" fill="none" stroke="#f79a75" stroke-width="7" stroke-linecap="round"/>
+<circle cx="140" cy="93" r="8" fill="#ffb199" opacity=".75"/>
+<path d="M198 45c18 10 31 24 39 43" fill="none" stroke="url(#green)" stroke-width="7" stroke-linecap="round"/>
+<path d="M207 27c27 14 46 34 58 60" fill="none" stroke="#00c86f" stroke-width="5" stroke-linecap="round" transform="translate(-23 7)"/>
+<path d="M202 175c-18 22-42 39-71 51" fill="none" stroke="#00c86f" stroke-width="6" stroke-linecap="round"/>
+<path d="M184 196c-7 7-14 13-22 19" fill="none" stroke="#ef3340" stroke-width="6" stroke-linecap="round"/>
+<circle cx="202" cy="53" r="10" fill="#ef3340"/>
+<path d="M198 49h8v7h-8z" fill="#ffd34d"/>
+</svg>
