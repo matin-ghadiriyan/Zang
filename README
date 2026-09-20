@@ -1,0 +1,92 @@
+# Zang
+
+**Zang** is a Flask-based chatbot project focused on building a clean, modular, and maintainable chat system.
+
+The project is being developed with a focus on backend architecture, database design, authentication, chat management, and scalable application structure.
+
+## Features
+
+* User management
+* Chat and message management
+* Flask Blueprints
+* SQLAlchemy
+* Flask-Migrate
+* Environment-based configuration
+* Rate limiting
+* Custom error pages
+* Modular application structure
+
+## Tech Stack
+
+* Python
+* Flask
+* SQLAlchemy
+* Flask-Migrate
+* MySQL
+* HTML / CSS / JavaScript
+
+## Project Structure
+
+```text
+Zang/
+├── app/
+│   ├── routes/
+│   ├── models/
+│   └── ...
+├── migrations/
+├── templates/
+├── static/
+├── config.py
+├── extensions.py
+└── run.py
+```
+
+## Database
+
+Zang uses SQLAlchemy for database interaction and Flask-Migrate for database schema migrations.
+
+When the database models are changed, a migration can be created with:
+
+```bash
+flask db migrate -m "describe your changes"
+```
+
+Pending migrations are automatically applied when the application starts.
+
+## Configuration
+
+Create a `.env` file and configure the required environment variables:
+
+```env
+SECRET_KEY=your-secret-key
+DATABASE_URL=your-database-url
+DEBUG=1
+PORT=5000
+HOST=0.0.0.0
+```
+
+## Running the Project
+
+Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then run:
+
+```bash
+python run.py
+```
+
+The application will start using the configuration defined in `.env`.
+
+## Status
+
+🚧 **Zang is currently under development.**
+
+New features and improvements will be added as the project evolves.
+
+## License
+
+This project is currently under development and its license may be defined later.
