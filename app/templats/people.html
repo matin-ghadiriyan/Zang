@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}کاربران | زنگ{% endblock %}
+
+{% block head %}
+<style>
+    .people-page {
+        min-height: 100vh;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 40px 18px;
+    }
+    .people-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .people-search {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+    .people-search input {
+        flex: 1;
+        min-width: 0;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(128,128,128,.3);
+        font: inherit;
+    }
+    .people-list {
+        display: grid;
+        gap: 10px;
+    }
+    .person-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px;
+        border: 1px solid rgba(128,128,128,.2);
+        border-radius: 14px;
+    }
+    .person-name {
+        font-weight: 700;
+    }
+    .people-empty {
+        opacity: .7;
+        text-align: center;
+        padding: 28px 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<main class="people-page">
+    <div class="people-header">
+        <div>
+            <h1>کاربران زنگ</h1>
+            <p>نام کاربری را جستجو کن و یک گفتگوی مستقیم بساز.</p>
+        </div>
+        <a class="btn btn-ghost" href="{{ url_for('chat_room.chatroom') }}">بازگشت به گفتگوها</a>
+    </div>
+
+    <form class="people-search" method="get">
+        <input
+            type="search"
+            name="q"
+            value="{{ query }}"
+            placeholder="جستجوی نام کاربری..."
+            minlength="1"
+            maxlength="50"
+            autocomplete="off"
+        >
+        <button class="btn btn-primary" type="submit">جستجو</button>
+    </form>
+
+    <div class="people-list">
+        {% for person in users %}
+            <div class="person-card">
+                <div class="person-name">@{{ person.username }}</div>
+                <form method="post" action="{{ url_for('people.start_direct_chat', user_id=person.id) }}">
+                    <button class="btn btn-primary" type="submit">پیام</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="people-empty">
+                {% if query %}
+                    کاربری با این نام پیدا نشد.
+                {% else %}
+                    برای پیدا کردن یک کاربر، نام کاربری او را جستجو کن.
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

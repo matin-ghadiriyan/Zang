@@ -23,6 +23,11 @@
             <input type="text" id="chat-search" placeholder="جستجوی گفتگو..." aria-label="جستجوی گفتگو">
         </div>
 
+        <a class="btn btn-ghost join-chat-btn" href="{{ url_for('people.people_page') }}">
+            <span aria-hidden="true">👤</span>
+            پیدا کردن کاربر
+        </a>
+
         <button class="btn btn-ghost join-chat-btn" id="join-chat-btn">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
             ورود با شناسه
@@ -66,6 +71,7 @@
             <p>یا یک گفتگوی جدید بساز تا شروع کنیم.</p>
             <div class="empty-actions">
                 <button class="btn btn-primary" id="empty-new-chat">گفتگوی جدید</button>
+                <a class="btn btn-ghost" href="{{ url_for('people.people_page') }}">پیدا کردن کاربر</a>
                 <button class="btn btn-ghost" id="empty-join-chat">ورود با شناسه</button>
             </div>
         </div>
