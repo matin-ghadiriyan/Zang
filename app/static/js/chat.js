@@ -116,12 +116,18 @@
     }
 
     /* ---------- Messages ---------- */
+    const currentUsername = shell.dataset.username;
+
     function renderMessage(message) {
+        const isMine = message.username === currentUsername;
         const wrapper = document.createElement('div');
-        wrapper.className = `message ${message.role === 'assistant' ? 'assistant' : 'user'}`;
+        wrapper.className = `message ${isMine ? 'mine' : 'other'}`;
         wrapper.dataset.messageId = message.id;
 
+        const name = Zang.escapeHtml(message.username || 'ناشناس');
+
         wrapper.innerHTML = `
+            <span class="message-author">${name}</span>
             <div class="message-bubble">${Zang.escapeHtml(message.content)}</div>
             <span class="message-time">${Zang.formatTime(message.created_at)}</span>
         `;

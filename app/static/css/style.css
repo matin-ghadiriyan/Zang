@@ -895,12 +895,26 @@ body.modal-open {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.message.user {
-    align-self: flex-start;
+.message.mine {
+    align-self: flex-end;
+    align-items: flex-end;
 }
 
-.message.assistant {
-    align-self: flex-end;
+.message.other {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.message-author {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 4px;
+    padding: 0 8px;
+}
+
+.message.mine .message-author {
+    color: var(--primary-soft);
 }
 
 .message-bubble {
@@ -912,16 +926,16 @@ body.modal-open {
     white-space: pre-wrap;
 }
 
-.message.user .message-bubble {
+.message.other .message-bubble {
     background: var(--surface-2);
     border: 1px solid var(--border);
-    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
-.message.assistant .message-bubble {
+.message.mine .message-bubble {
     background: linear-gradient(135deg, var(--primary), var(--primary-soft));
     color: #fff;
-    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .message-time {
@@ -931,7 +945,7 @@ body.modal-open {
     padding: 0 6px;
 }
 
-.message.assistant .message-time {
+.message.mine .message-time {
     text-align: left;
 }
 

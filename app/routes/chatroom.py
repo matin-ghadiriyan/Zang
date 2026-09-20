@@ -311,7 +311,12 @@ def send_message(chat_id: int):
             'error': 'متن پیام بیش از حد طولانی است.'
         }), 400
 
-    message = Message(content=content, role='user', chat_id=chat.id)
+    message = Message(
+        content=content,
+        role='user',
+        chat_id=chat.id,
+        user_id=user.id
+    )
     db.session.add(message)
     chat.updated_at = message.created_at or chat.updated_at
     db.session.commit()

@@ -23,6 +23,13 @@ class User(db.Model):
         lazy='dynamic'
     )
 
+    messages = db.relationship(
+        'Message',
+        backref='author',
+        foreign_keys='Message.user_id',
+        lazy='dynamic'
+    )
+
     def set_password(self, raw_password: str) -> None:
         '''تنظیم رمز عبور به صورت هش شده'''
         self.password = generate_password_hash(raw_password)
@@ -160,7 +167,15 @@ class Message(db.Model):
         nullable=False,
         index=True
     )
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete='SET NULL'),
+        nullable=True,
+        index=True
+    )
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+    sender = db.relationship('User', foreign_keys=[user_id], lazy='joined')
 
     def to_dict(self) -> dict:
         '''تبدیل پیام به دیکشنری'''
@@ -169,6 +184,8 @@ class Message(db.Model):
             'content': self.content,
             'role': self.role,
             'chat_id': self.chat_id,
+            'user_id': self.user_id,
+            'username': self.sender.username if self.sender else None,
             'created_at': self.created_at.isoformat()
         }
 
