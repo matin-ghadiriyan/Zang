@@ -12,42 +12,58 @@
                 <span class="brand-mark">ز</span>
                 <span class="brand-name">زنگ</span>
             </a>
-            <button class="icon-btn" id="new-chat-btn" title="گفتگوی جدید" aria-label="گفتگوی جدید">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                    <path d="M12 5v14M5 12h14"/>
-                </svg>
-            </button>
+            <div class="sidebar-header-actions">
+                <button class="icon-btn" id="new-channel-btn" title="کانال جدید" aria-label="کانال جدید">📣</button>
+                <button class="icon-btn" id="new-chat-btn" title="گفتگوی جدید" aria-label="گفتگوی جدید">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <div class="sidebar-search">
-            <input type="text" id="chat-search" placeholder="جستجوی گفتگو..." aria-label="جستجوی گفتگو">
+            <input type="text" id="chat-search" placeholder="جستجوی گفتگو یا کانال..." aria-label="جستجوی گفتگو">
         </div>
 
-        <a class="btn btn-ghost join-chat-btn" href="{{ url_for('people.people_page') }}">
-            <span aria-hidden="true">👤</span>
-            پیدا کردن کاربر
-        </a>
+        <div class="sidebar-quick-actions">
+            <a class="btn btn-ghost join-chat-btn" href="{{ url_for('people.people_page') }}">
+                <span aria-hidden="true">👤</span>
+                پیدا کردن کاربر
+            </a>
 
-        <button class="btn btn-ghost join-chat-btn" id="join-chat-btn">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
-            ورود با شناسه
-        </button>
+            <button class="btn btn-ghost join-chat-btn" id="join-chat-btn">
+                <span aria-hidden="true">🔗</span>
+                ورود با شناسه
+            </button>
+        </div>
 
         <nav class="chat-list" id="chat-list" aria-label="لیست گفتگوها">
             {% for chat in chats %}
-            <button class="chat-item" data-chat-id="{{ chat.id }}" data-title="{{ chat.title }}">
-                <span class="chat-avatar">{{ chat.title[0] }}</span>
+            <button
+                class="chat-item{% if chat.kind == 'channel' %} channel{% endif %}"
+                data-chat-id="{{ chat.id }}"
+                data-title="{{ chat.title }}"
+                data-kind="{{ chat.kind }}"
+            >
+                <span class="chat-avatar">{% if chat.kind == 'channel' %}📣{% else %}{{ chat.title[0] }}{% endif %}</span>
                 <span class="chat-item-body">
                     <span class="chat-item-title">{{ chat.title }}</span>
-                    <span class="chat-item-meta">{{ chat.messages_count }} پیام</span>
+                    <span class="chat-item-meta">
+                        {% if chat.kind == 'channel' %}
+                            کانال • {{ chat.members_count }} عضو • {{ chat.messages_count }} پیام
+                        {% else %}
+                            {{ chat.messages_count }} پیام
+                        {% endif %}
+                    </span>
                 </span>
                 <span class="chat-item-actions">
-                    <span class="chat-action rename" data-action="rename" title="تغییر نام">
-                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                    </span>
-                    <span class="chat-action delete" data-action="delete" title="حذف">
-                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>
-                    </span>
+                    {% if chat.kind != 'channel' or chat.is_owner %}
+                    <span class="chat-action rename" data-action="rename" title="تغییر نام">✎</span>
+                    {% endif %}
+                    {% if chat.is_owner %}
+                    <span class="chat-action delete" data-action="delete" title="حذف">×</span>
+                    {% endif %}
                 </span>
             </button>
             {% endfor %}
@@ -66,12 +82,12 @@
 
     <main class="chat-main">
         <div class="empty-state" id="empty-state">
-            <div class="empty-icon">💬</div>
-            <h2>یک گفتگو انتخاب کن</h2>
-            <p>یا یک گفتگوی جدید بساز تا شروع کنیم.</p>
+            <img class="empty-logo" src="{{ url_for('static', filename='img/zang-logo.svg') }}" alt="لوگوی زنگ">
+            <h2>یک گفتگو یا کانال انتخاب کن</h2>
+            <p>پیام‌های جدید بدون رفرش صفحه نمایش داده می‌شوند.</p>
             <div class="empty-actions">
                 <button class="btn btn-primary" id="empty-new-chat">گفتگوی جدید</button>
-                <a class="btn btn-ghost" href="{{ url_for('people.people_page') }}">پیدا کردن کاربر</a>
+                <button class="btn btn-outline" id="empty-new-channel">کانال جدید</button>
                 <button class="btn btn-ghost" id="empty-join-chat">ورود با شناسه</button>
             </div>
         </div>
@@ -83,11 +99,16 @@
                 </button>
                 <div class="conversation-info">
                     <h2 id="conversation-title">گفتگو</h2>
-                    <span id="conversation-status">آنلاین</span>
+                    <span id="conversation-status"><span class="live-dot"></span> همگام‌سازی خودکار</span>
                 </div>
+                <button class="btn btn-ghost btn-sm" id="copy-invite-btn" hidden>کپی کد عضویت</button>
             </header>
 
             <div class="messages" id="messages" aria-live="polite"></div>
+
+            <div class="channel-readonly-note hidden" id="channel-readonly-note">
+                📣 این یک کانال است؛ فقط مدیر کانال می‌تواند پیام منتشر کند.
+            </div>
 
             <form class="composer" id="composer">
                 <textarea id="message-input" placeholder="پیام خود را بنویسید..." rows="1" aria-label="متن پیام"></textarea>
@@ -105,14 +126,14 @@
     <div class="modal-backdrop" data-close-modal></div>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="create-chat-title">
         <h3 id="create-chat-title">گفتگوی جدید</h3>
-        <p class="modal-hint">عنوان و شناسه‌های دسترسی را وارد کن. هر کسی این شناسه را داشته باشد می‌تواند وارد گفتگو شود.</p>
+        <p class="modal-hint">عنوان و شناسه دسترسی را وارد کن.</p>
         <label class="modal-field">
             <span>عنوان گفتگو</span>
             <input type="text" id="create-chat-title-input" maxlength="120" placeholder="گفتگوی جدید">
         </label>
         <label class="modal-field">
-            <span>شناسه‌ها (با کاما جدا کن)</span>
-            <input type="text" id="create-chat-codes-input" maxlength="640" placeholder="مثلاً: ali, team-1">
+            <span>شناسه</span>
+            <input type="text" id="create-chat-codes-input" maxlength="64" placeholder="مثلاً: team-1">
         </label>
         <div class="modal-actions">
             <button class="btn btn-ghost" data-close-modal>انصراف</button>
@@ -121,14 +142,34 @@
     </div>
 </div>
 
+<div class="modal" id="create-channel-modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="create-channel-title">
+        <h3 id="create-channel-title">کانال جدید 📣</h3>
+        <p class="modal-hint">در کانال فقط مدیر پیام می‌فرستد و بقیه اعضا پیام‌ها را می‌خوانند.</p>
+        <label class="modal-field">
+            <span>نام کانال</span>
+            <input type="text" id="create-channel-title-input" maxlength="60" placeholder="مثلاً: اخبار زنگ">
+        </label>
+        <label class="modal-field">
+            <span>کد عضویت (اختیاری)</span>
+            <input type="text" id="create-channel-code-input" maxlength="64" placeholder="اگر خالی باشد خود زنگ می‌سازد">
+        </label>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" data-close-modal>انصراف</button>
+            <button class="btn btn-primary" id="create-channel-confirm">ساخت کانال</button>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="join-chat-modal" hidden>
     <div class="modal-backdrop" data-close-modal></div>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="join-chat-title">
         <h3 id="join-chat-title">ورود با شناسه</h3>
-        <p class="modal-hint">شناسه گفتگو را وارد کن تا به آن دسترسی پیدا کنی.</p>
+        <p class="modal-hint">شناسه گفتگو یا کد عضویت کانال را وارد کن.</p>
         <label class="modal-field">
             <span>شناسه</span>
-            <input type="text" id="join-chat-code-input" maxlength="640" placeholder="مثلاً: ali">
+            <input type="text" id="join-chat-code-input" maxlength="64" placeholder="مثلاً: zang-AbC12">
         </label>
         <div class="modal-actions">
             <button class="btn btn-ghost" data-close-modal>انصراف</button>
