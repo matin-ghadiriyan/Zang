@@ -352,11 +352,11 @@ def list_messages(chat_id: int):
 @chat_room.route('/api/messages/<int:message_id>', methods=['DELETE'])
 @is_logged_in
 def delete_message(message_id: int):
-    '''حذف پیام؛ فقط فرستنده همان پیام'''
+    '''حذف پیام'''
     user = current_user()
     message = Message.query.filter_by(id=message_id).first()
 
-    if not message or message.user_id != user.id:
+    if not message or message.chat.user_id != user.id:
         return jsonify({
             'success': False,
             'error': 'پیام یافت نشد.'
