@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}ثبت‌نام | زنگ{% endblock %}
+{% block body_class %}auth{% endblock %}
+
+{% block body %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-brand">
+            <span class="brand-mark">ز</span>
+            <span class="brand-name">زنگ</span>
+        </div>
+        <h1 class="auth-title">ساخت حساب</h1>
+        <p class="auth-subtitle">چند ثانیه تا شروع فاصله داری</p>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash flash-error">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login_register.register') }}" class="auth-form" id="register-form" novalidate>
+            <div class="form-group">
+                <label for="username">نام کاربری</label>
+                <input type="text" id="username" name="username" placeholder="نام کاربری خود را وارد کنید" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="email">ایمیل</label>
+                <input type="email" id="email" name="email" placeholder="example@mail.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="password">رمز عبور</label>
+                <input type="password" id="password" name="password" placeholder="حداقل ۸ کاراکتر" required autocomplete="new-password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">ثبت‌نام</button>
+        </form>
+
+        <p class="auth-footer">
+            حساب داری؟
+            <a href="{{ url_for('login_register.login') }}">وارد شو</a>
+        </p>
+    </div>
+    <div class="auth-side">
+        <h2>به زنگ بپیوند</h2>
+        <p>گفتگوهایت را با امنیت و سرعت مدیریت کن.</p>
+    </div>
+</div>
+{% endblock %}

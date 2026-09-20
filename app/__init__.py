@@ -1,7 +1,8 @@
-from flask import Flask, render_template
-from extensions import db, migrate
-from app.request_limiter import rate_limit
+from flask import Flask, render_template, session
 from flask_migrate import upgrade
+
+from app.extensions import db, migrate
+from app.request_limiter import rate_limit
 from app.routes import Blue_prints
 from config import Config
 
@@ -10,10 +11,18 @@ def create_app() -> Flask:
 
     # --- create the application ---------------------------------------------
     ''' Create the application instance '''
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        template_folder='templats',
+        static_folder='static'
+    )
 
     # --- add the seeting of config in the application -----------------------
     app.config.from_object(Config)
+
+    ''' ensure secret key exists '''
+    if not app.config.get('SECRET_KEY'):
+        app.config['SECRET_KEY'] = 'zang-dev-secret-key'
 
     # --- configure the application ------------------------------------------
     ''' configure the database '''
@@ -46,6 +55,13 @@ def create_app() -> Flask:
     @app.errorhandler(401)
     def unauthorized(_):
         return render_template('errors/401.html'), 401
+
+    # --- context processor ----------------------------------------------------
+    @app.context_processor
+    def inject_user():
+        '''تزریق اطلاعات کاربر به قالب‌ها'''
+        from app.Access import current_user
+        return {'current_user': current_user()}
 
     # --- add rate limiter -----------------------------------------------------
     @app.before_request

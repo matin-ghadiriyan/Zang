@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}۴۰۴ | زنگ{% endblock %}
+{% block body_class %}error-page{% endblock %}
+
+{% block body %}
+<div class="error-wrapper">
+    <div class="error-card">
+        <div class="error-code">۴۰۴</div>
+        <h1 class="error-title">صفحه پیدا نشد</h1>
+        <p class="error-text">آدرسی که دنبالش هستی وجود ندارد یا جابه‌جا شده است.</p>
+        <a href="{{ url_for('home.index') }}" class="btn btn-primary btn-lg">بازگشت به خانه</a>
+    </div>
+</div>
+{% endblock %}

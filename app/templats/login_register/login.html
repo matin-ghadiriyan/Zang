@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}ورود | زنگ{% endblock %}
+{% block body_class %}auth{% endblock %}
+
+{% block body %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-brand">
+            <span class="brand-mark">ز</span>
+            <span class="brand-name">زنگ</span>
+        </div>
+        <h1 class="auth-title">خوش آمدی</h1>
+        <p class="auth-subtitle">برای ادامه وارد حساب خود شو</p>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash flash-error">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login_register.login') }}" class="auth-form" id="login-form" novalidate>
+            <div class="form-group">
+                <label for="username">نام کاربری</label>
+                <input type="text" id="username" name="username" placeholder="نام کاربری خود را وارد کنید" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">رمز عبور</label>
+                <input type="password" id="password" name="password" placeholder="رمز عبور خود را وارد کنید" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">ورود</button>
+        </form>
+
+        <p class="auth-footer">
+            حساب نداری؟
+            <a href="{{ url_for('login_register.register') }}">ثبت‌نام کن</a>
+        </p>
+    </div>
+    <div class="auth-side">
+        <h2>به زنگ خوش آمدی</h2>
+        <p>جایی برای گفتگوهای سریع، امن و زیبا.</p>
+    </div>
+</div>
+{% endblock %}

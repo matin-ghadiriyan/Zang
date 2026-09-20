@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}زنگ | پیام‌رسان مدرن{% endblock %}
+{% block body_class %}landing{% endblock %}
+
+{% block body %}
+<header class="landing-header">
+    <div class="container landing-header-inner">
+        <a href="{{ url_for('home.index') }}" class="brand">
+            <span class="brand-mark">ز</span>
+            <span class="brand-name">زنگ</span>
+        </a>
+        <nav class="landing-nav">
+            <a href="{{ url_for('login_register.login') }}" class="btn btn-ghost">ورود</a>
+            <a href="{{ url_for('login_register.register') }}" class="btn btn-primary">ثبت‌نام</a>
+        </nav>
+    </div>
+</header>
+
+<main class="landing-main">
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <span class="hero-badge">پیام‌رسان نسل جدید</span>
+                <h1 class="hero-title">گفتگوهایت را با <span class="accent">زنگ</span> زنده کن</h1>
+                <p class="hero-text">
+                    زنگ یک پیام‌رسان سریع، امن و زیبا است. گفتگوهای خود را بساز، پیام‌ها را مدیریت کن
+                    و تجربه‌ای روان از ارتباط داشته باش.
+                </p>
+                <div class="hero-actions">
+                    <a href="{{ url_for('login_register.register') }}" class="btn btn-primary btn-lg">شروع کن</a>
+                    <a href="{{ url_for('login_register.login') }}" class="btn btn-outline btn-lg">حساب دارم</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="chat-preview">
+                    <div class="chat-preview-header">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="chat-preview-body">
+                        <div class="bubble bubble-in">سلام! خوش آمدی 👋</div>
+                        <div class="bubble bubble-out">سلام، ممنون! آماده‌ام</div>
+                        <div class="bubble bubble-in">بریم شروع کنیم؟</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features container">
+        <h2 class="section-title">چرا زنگ؟</h2>
+        <div class="features-grid">
+            <article class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>سرعت بالا</h3>
+                <p>تجربه‌ای سریع و روان بدون معطلی.</p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>امنیت</h3>
+                <p>رمزهای عبور هش‌شده و نشست‌های امن.</p>
+            </article>
+            <article class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>مدیریت گفتگو</h3>
+                <p>ساخت، تغییر نام و حذف گفتگوها به‌سادگی.</p>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer class="landing-footer">
+    <div class="container">
+        <p>ساخته‌شده با ❤️ در پروژه زنگ</p>
+    </div>
+</footer>
+{% endblock %}

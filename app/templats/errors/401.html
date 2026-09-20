@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}۴۰۱ | زنگ{% endblock %}
+{% block body_class %}error-page{% endblock %}
+
+{% block body %}
+<div class="error-wrapper">
+    <div class="error-card">
+        <div class="error-code">۴۰۱</div>
+        <h1 class="error-title">احراز هویت نشده</h1>
+        <p class="error-text">برای دسترسی به این بخش باید وارد حساب خود شوی.</p>
+        <a href="{{ url_for('login_register.login') }}" class="btn btn-primary btn-lg">ورود به حساب</a>
+    </div>
+</div>
+{% endblock %}
