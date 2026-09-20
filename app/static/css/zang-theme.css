@@ -1,0 +1,261 @@
+/* ==================== Zang | Identity Theme ==================== */
+
+:root {
+    --bg: #0d1014;
+    --bg-soft: #151a20;
+    --surface: #171d24;
+    --surface-2: #202832;
+    --border: #2c3540;
+    --text: #f8fafc;
+    --text-muted: #9da8b5;
+    --primary: #ef3340;
+    --primary-soft: #ff6670;
+    --primary-glow: rgba(239, 51, 64, 0.34);
+    --accent: #12c978;
+    --danger: #ef4444;
+    --success: #22c55e;
+}
+
+body::before {
+    background:
+        radial-gradient(circle at 14% 8%, rgba(239, 51, 64, 0.18), transparent 38%),
+        radial-gradient(circle at 84% 88%, rgba(18, 201, 120, 0.12), transparent 40%),
+        radial-gradient(circle at 72% 14%, rgba(250, 191, 36, 0.07), transparent 28%);
+}
+
+.brand-mark {
+    color: transparent !important;
+    background: #ffffff url('../img/zang-logo.svg') center / 92% auto no-repeat !important;
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    box-shadow: 0 8px 24px rgba(239, 51, 64, 0.25);
+    overflow: hidden;
+}
+
+.brand-name {
+    background: linear-gradient(135deg, #ff6b74 0%, #ffffff 45%, #19d989 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ef3340, #ff6b74);
+    box-shadow: 0 8px 26px rgba(239, 51, 64, 0.28);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 12px 32px rgba(239, 51, 64, 0.38);
+}
+
+.btn-outline:hover,
+.form-group input:focus,
+.sidebar-search input:focus {
+    border-color: var(--primary-soft);
+}
+
+.hero-title .accent {
+    background: linear-gradient(135deg, #ff5965, #f9b72b 54%, #18d180);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-badge {
+    color: #ff8991;
+    background: rgba(239, 51, 64, 0.10);
+    border-color: rgba(239, 51, 64, 0.30);
+}
+
+.auth-side {
+    background:
+        radial-gradient(circle at 80% 10%, rgba(18, 201, 120, 0.34), transparent 32%),
+        linear-gradient(150deg, #b8202d, #ef3340 55%, #ff6b74);
+}
+
+.zang-preview {
+    border-color: rgba(239, 51, 64, 0.35);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.46), 0 0 0 1px rgba(18, 201, 120, 0.08);
+}
+
+.zang-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    background: #0d1014;
+    transition: opacity .38s ease, visibility .38s ease;
+}
+
+.zang-loader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.zang-loader-rings {
+    position: relative;
+    width: 132px;
+    height: 132px;
+    display: grid;
+    place-items: center;
+}
+
+.zang-loader-rings img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border-radius: 24px;
+    background: #fff;
+    z-index: 2;
+    box-shadow: 0 10px 36px rgba(0,0,0,.35);
+}
+
+.loader-ring {
+    position: absolute;
+    inset: 6px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    animation: zang-spin 1.25s linear infinite;
+}
+
+.ring-red {
+    border-top-color: #ef3340;
+    border-right-color: rgba(239, 51, 64, .35);
+}
+
+.ring-green {
+    inset: 16px;
+    border-left-color: #12c978;
+    border-bottom-color: rgba(18, 201, 120, .35);
+    animation-direction: reverse;
+    animation-duration: 1.55s;
+}
+
+.ring-gold {
+    inset: 27px;
+    border-top-color: #f5b927;
+    animation-duration: 2s;
+}
+
+@keyframes zang-spin {
+    to { transform: rotate(360deg); }
+}
+
+.sidebar {
+    background:
+        linear-gradient(180deg, rgba(239, 51, 64, 0.035), transparent 18%),
+        var(--surface);
+}
+
+.sidebar-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sidebar-quick-actions {
+    display: grid;
+    gap: 4px;
+    padding: 0 12px 10px;
+}
+
+.sidebar-quick-actions .join-chat-btn {
+    justify-content: flex-start;
+    padding: 9px 12px;
+}
+
+.chat-item.channel {
+    border: 1px solid transparent;
+}
+
+.chat-item.channel .chat-avatar {
+    background: linear-gradient(135deg, rgba(239, 51, 64, .22), rgba(18, 201, 120, .18));
+    border: 1px solid rgba(239, 51, 64, .22);
+}
+
+.chat-item.channel.active {
+    border-color: rgba(239, 51, 64, .32);
+}
+
+.chat-action {
+    font-size: 1.05rem;
+}
+
+.conversation-header {
+    background:
+        linear-gradient(90deg, rgba(239, 51, 64, .045), rgba(18, 201, 120, .025)),
+        var(--surface);
+}
+
+#conversation-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #16d784;
+    box-shadow: 0 0 0 4px rgba(22, 215, 132, .11);
+    animation: live-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+    50% { box-shadow: 0 0 0 7px rgba(22, 215, 132, .04); }
+}
+
+.channel-readonly-note {
+    margin: 8px 16px 14px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    color: #ffd1d4;
+    background: rgba(239, 51, 64, .08);
+    border: 1px solid rgba(239, 51, 64, .18);
+    text-align: center;
+    font-size: .9rem;
+}
+
+.empty-logo {
+    width: 108px;
+    height: 108px;
+    object-fit: contain;
+    border-radius: 32px;
+    background: #fff;
+    padding: 4px;
+    margin-bottom: 18px;
+    box-shadow: 0 18px 50px rgba(239, 51, 64, .22);
+}
+
+#copy-invite-btn {
+    font-size: .78rem;
+    border: 1px solid rgba(18, 201, 120, .22);
+    color: #9ff1c9;
+}
+
+.message.mine .message-bubble,
+.bubble-out {
+    background: linear-gradient(135deg, #ef3340, #ff5f69);
+}
+
+.message.other .message-bubble {
+    border: 1px solid rgba(255, 255, 255, .04);
+}
+
+.toast.success {
+    border-color: rgba(18, 201, 120, .32);
+}
+
+@media (max-width: 640px) {
+    .sidebar-quick-actions {
+        padding-inline: 10px;
+    }
+
+    #copy-invite-btn {
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
