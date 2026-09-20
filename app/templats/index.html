@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}زنگ | پیام‌رسان مدرن{% endblock %}
+{% block title %}زنگ | پیام‌رسان{% endblock %}
 {% block body_class %}landing{% endblock %}
 
 {% block body %}
@@ -21,11 +21,11 @@
     <section class="hero">
         <div class="container hero-inner">
             <div class="hero-content">
-                <span class="hero-badge">پیام‌رسان نسل جدید</span>
-                <h1 class="hero-title">گفتگوهایت را با <span class="accent">زنگ</span> زنده کن</h1>
+                <span class="hero-badge">زنگ؛ گفتگو بدون توقف</span>
+                <h1 class="hero-title">پیام‌ها را با <span class="accent">زنگ</span> زنده‌تر ببین</h1>
                 <p class="hero-text">
-                    زنگ یک پیام‌رسان سریع، امن و زیبا است. گفتگوهای خود را بساز، پیام‌ها را مدیریت کن
-                    و تجربه‌ای روان از ارتباط داشته باش.
+                    گفتگوی مستقیم، کانال و دریافت خودکار پیام‌ها بدون رفرش صفحه؛
+                    با ظاهر اختصاصی زنگ و همان هویت رنگی قدیمی آن.
                 </p>
                 <div class="hero-actions">
                     <a href="{{ url_for('login_register.register') }}" class="btn btn-primary btn-lg">شروع کن</a>
@@ -33,16 +33,16 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="chat-preview">
+                <div class="chat-preview zang-preview">
                     <div class="chat-preview-header">
                         <span class="dot"></span>
                         <span class="dot"></span>
                         <span class="dot"></span>
                     </div>
                     <div class="chat-preview-body">
-                        <div class="bubble bubble-in">سلام! خوش آمدی 👋</div>
-                        <div class="bubble bubble-out">سلام، ممنون! آماده‌ام</div>
-                        <div class="bubble bubble-in">بریم شروع کنیم؟</div>
+                        <div class="bubble bubble-in">سلام! پیام تازه رسید 🔔</div>
+                        <div class="bubble bubble-out">بدون رفرش دیدمش 😄</div>
+                        <div class="bubble bubble-in">کانال زنگ هم آماده‌ست 📣</div>
                     </div>
                 </div>
             </div>
@@ -50,22 +50,22 @@
     </section>
 
     <section class="features container">
-        <h2 class="section-title">چرا زنگ؟</h2>
+        <h2 class="section-title">قابلیت‌های فعلی زنگ</h2>
         <div class="features-grid">
             <article class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>سرعت بالا</h3>
-                <p>تجربه‌ای سریع و روان بدون معطلی.</p>
+                <div class="feature-icon">🔔</div>
+                <h3>پیام بدون رفرش</h3>
+                <p>پیام‌های جدید به‌صورت خودکار در گفتگوی باز نمایش داده می‌شوند.</p>
             </article>
             <article class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>امنیت</h3>
-                <p>رمزهای عبور هش‌شده و نشست‌های امن.</p>
+                <div class="feature-icon">📣</div>
+                <h3>کانال</h3>
+                <p>کانال بساز، کد عضویت بده و پیام‌ها را فقط از طرف مدیر منتشر کن.</p>
             </article>
             <article class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3>مدیریت گفتگو</h3>
-                <p>ساخت، تغییر نام و حذف گفتگوها به‌سادگی.</p>
+                <div class="feature-icon">👤</div>
+                <h3>گفتگوی مستقیم</h3>
+                <p>کاربرها را با نام کاربری پیدا کن و گفتگوی دو نفره را شروع کن.</p>
             </article>
         </div>
     </section>
@@ -73,7 +73,7 @@
 
 <footer class="landing-footer">
     <div class="container">
-        <p>ساخته‌شده با ❤️ در پروژه زنگ</p>
+        <p>زنگ — پیام‌رسان در حال توسعه</p>
     </div>
 </footer>
 {% endblock %}
