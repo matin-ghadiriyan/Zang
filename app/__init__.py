@@ -1,5 +1,7 @@
+import os
+
 from flask import Flask, render_template, session
-from flask_migrate import upgrade
+from flask_migrate import upgrade, stamp
 
 from app.extensions import db, migrate
 from app.request_limiter import rate_limit
@@ -71,9 +73,29 @@ def create_app() -> Flask:
             return render_template('errors/429.html'), 429
 
     # --- upgrade the database ------------------------------------------------
-    ''' upgrade the database '''
+    ''' به‌روزرسانی خودکار دیتابیس هنگام بالا آمدن برنامه '''
     with app.app_context():
-        upgrade()
+        _auto_update_database(app)
 
     # --- return the application ----------------------------------------------
     return app
+
+
+def _auto_update_database(app: Flask) -> None:
+    '''اجرای مهاجرت‌ها و ساخت جداول جدید به صورت خودکار'''
+    migrations_dir = os.path.join(app.root_path, '..', 'migrations')
+
+    '''اگر پوشه مهاجرت وجود داشت، مهاجرت‌ها را اعمال کن'''
+    if os.path.isdir(migrations_dir):
+        try:
+            upgrade()
+            return
+        except Exception:
+            db.session.rollback()
+            try:
+                stamp()
+            except Exception:
+                pass
+
+    '''در غیر این صورت جداول را مستقیم بساز'''
+    db.create_all()

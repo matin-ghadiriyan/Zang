@@ -23,6 +23,11 @@
             <input type="text" id="chat-search" placeholder="جستجوی گفتگو..." aria-label="جستجوی گفتگو">
         </div>
 
+        <button class="btn btn-ghost join-chat-btn" id="join-chat-btn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+            ورود با شناسه
+        </button>
+
         <nav class="chat-list" id="chat-list" aria-label="لیست گفتگوها">
             {% for chat in chats %}
             <button class="chat-item" data-chat-id="{{ chat.id }}" data-title="{{ chat.title }}">
@@ -59,7 +64,10 @@
             <div class="empty-icon">💬</div>
             <h2>یک گفتگو انتخاب کن</h2>
             <p>یا یک گفتگوی جدید بساز تا شروع کنیم.</p>
-            <button class="btn btn-primary" id="empty-new-chat">گفتگوی جدید</button>
+            <div class="empty-actions">
+                <button class="btn btn-primary" id="empty-new-chat">گفتگوی جدید</button>
+                <button class="btn btn-ghost" id="empty-join-chat">ورود با شناسه</button>
+            </div>
         </div>
 
         <section class="conversation hidden" id="conversation">
@@ -85,6 +93,42 @@
     </main>
 
     <div class="overlay" id="overlay"></div>
+</div>
+
+<div class="modal" id="create-chat-modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="create-chat-title">
+        <h3 id="create-chat-title">گفتگوی جدید</h3>
+        <p class="modal-hint">عنوان و شناسه‌های دسترسی را وارد کن. هر کسی این شناسه را داشته باشد می‌تواند وارد گفتگو شود.</p>
+        <label class="modal-field">
+            <span>عنوان گفتگو</span>
+            <input type="text" id="create-chat-title-input" maxlength="120" placeholder="گفتگوی جدید">
+        </label>
+        <label class="modal-field">
+            <span>شناسه‌ها (با کاما جدا کن)</span>
+            <input type="text" id="create-chat-codes-input" maxlength="640" placeholder="مثلاً: ali, team-1">
+        </label>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" data-close-modal>انصراف</button>
+            <button class="btn btn-primary" id="create-chat-confirm">ساخت گفتگو</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="join-chat-modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="join-chat-title">
+        <h3 id="join-chat-title">ورود با شناسه</h3>
+        <p class="modal-hint">شناسه گفتگو را وارد کن تا به آن دسترسی پیدا کنی.</p>
+        <label class="modal-field">
+            <span>شناسه</span>
+            <input type="text" id="join-chat-code-input" maxlength="640" placeholder="مثلاً: ali">
+        </label>
+        <div class="modal-actions">
+            <button class="btn btn-ghost" data-close-modal>انصراف</button>
+            <button class="btn btn-primary" id="join-chat-confirm">ورود</button>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

@@ -21,9 +21,43 @@
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     const menuToggle = document.getElementById('menu-toggle');
+    const joinChatBtn = document.getElementById('join-chat-btn');
+    const emptyJoinChat = document.getElementById('empty-join-chat');
+    const createModal = document.getElementById('create-chat-modal');
+    const joinModal = document.getElementById('join-chat-modal');
+    const createTitleInput = document.getElementById('create-chat-title-input');
+    const createCodesInput = document.getElementById('create-chat-codes-input');
+    const createConfirm = document.getElementById('create-chat-confirm');
+    const joinCodeInput = document.getElementById('join-chat-code-input');
+    const joinConfirm = document.getElementById('join-chat-confirm');
 
     let activeChatId = null;
     let sending = false;
+
+    /* ---------- Modals ---------- */
+    function openModal(modal) {
+        if (!modal) return;
+        modal.hidden = false;
+        document.body.classList.add('modal-open');
+    }
+
+    function closeModal(modal) {
+        if (!modal) return;
+        modal.hidden = true;
+        document.body.classList.remove('modal-open');
+    }
+
+    document.querySelectorAll('[data-close-modal]').forEach((element) => {
+        element.addEventListener('click', () => {
+            closeModal(element.closest('.modal'));
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            document.querySelectorAll('.modal:not([hidden])').forEach(closeModal);
+        }
+    });
 
     /* ---------- Sidebar (mobile) ---------- */
     function openSidebar() {
@@ -128,18 +162,71 @@
     }
 
     /* ---------- Create Chat ---------- */
-    async function createChat() {
+    function openCreateModal() {
+        createTitleInput.value = '';
+        createCodesInput.value = '';
+        openModal(createModal);
+        createTitleInput.focus();
+    }
+
+    async function submitCreateChat() {
+        const title = createTitleInput.value.trim() || 'گفتگوی جدید';
+        const codes = createCodesInput.value.trim();
+
+        if (!codes) {
+            Zang.toast('حداقل یک شناسه وارد کن', 'error');
+            return;
+        }
+
+        createConfirm.disabled = true;
         try {
             const data = await Zang.api('/chat/api/chats', {
                 method: 'POST',
-                body: JSON.stringify({ title: 'گفتگوی جدید' })
+                body: JSON.stringify({ title, codes })
             });
 
             addChatToList(data.chat, true);
+            closeModal(createModal);
             await loadChat(data.chat.id);
             Zang.toast('گفتگوی جدید ساخته شد', 'success');
         } catch (error) {
             Zang.toast(error.message, 'error');
+        } finally {
+            createConfirm.disabled = false;
+        }
+    }
+
+    /* ---------- Join Chat ---------- */
+    function openJoinModal() {
+        joinCodeInput.value = '';
+        openModal(joinModal);
+        joinCodeInput.focus();
+    }
+
+    async function submitJoinChat() {
+        const code = joinCodeInput.value.trim();
+        if (!code) {
+            Zang.toast('شناسه را وارد کن', 'error');
+            return;
+        }
+
+        joinConfirm.disabled = true;
+        try {
+            const data = await Zang.api('/chat/api/chats/join', {
+                method: 'POST',
+                body: JSON.stringify({ code })
+            });
+
+            (data.chats || []).forEach((chat) => addChatToList(chat, true));
+            closeModal(joinModal);
+            if (data.chats && data.chats.length) {
+                await loadChat(data.chats[0].id);
+            }
+            Zang.toast('به گفتگو وارد شدی', 'success');
+        } catch (error) {
+            Zang.toast(error.message, 'error');
+        } finally {
+            joinConfirm.disabled = false;
         }
     }
 
@@ -251,8 +338,20 @@
         loadChat(chatId);
     });
 
-    newChatBtn?.addEventListener('click', createChat);
-    emptyNewChat?.addEventListener('click', createChat);
+    newChatBtn?.addEventListener('click', openCreateModal);
+    emptyNewChat?.addEventListener('click', openCreateModal);
+    createConfirm?.addEventListener('click', submitCreateChat);
+    createCodesInput?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') { event.preventDefault(); submitCreateChat(); }
+    });
+
+    joinChatBtn?.addEventListener('click', openJoinModal);
+    emptyJoinChat?.addEventListener('click', openJoinModal);
+    joinConfirm?.addEventListener('click', submitJoinChat);
+    joinCodeInput?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') { event.preventDefault(); submitJoinChat(); }
+    });
+
     composer?.addEventListener('submit', sendMessage);
 
     messageInput?.addEventListener('input', () => Zang.autoResize(messageInput));
