@@ -47,3 +47,6 @@ htmlcov/
 *.sqlite
 *.sqlite3
 migrations/
+
+# virtual environment
+venv/
