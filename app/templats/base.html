@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#6d28d9">
+    <meta name="theme-color" content="#ef3340">
     <title>{% block title %}زنگ | پیام‌رسان{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/zang-logo.svg') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/zang-theme.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
+
+    <div class="zang-loader" id="zang-loader" aria-hidden="true">
+        <div class="zang-loader-rings">
+            <span class="loader-ring ring-red"></span>
+            <span class="loader-ring ring-green"></span>
+            <span class="loader-ring ring-gold"></span>
+            <img src="{{ url_for('static', filename='img/zang-logo.svg') }}" alt="">
+        </div>
+    </div>
 
     {% block body %}{% endblock %}
 
