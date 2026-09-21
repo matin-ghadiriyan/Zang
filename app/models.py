@@ -14,6 +14,7 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False, index=True)
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     password = db.Column(db.String(255), nullable=False)
+    theme = db.Column(db.String(20), nullable=False, default='zang')
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
     chats = db.relationship(
@@ -44,6 +45,7 @@ class User(db.Model):
             'id': self.id,
             'username': self.username,
             'email': self.email,
+            'theme': self.theme or 'zang',
             'created_at': self.created_at.isoformat()
         }
 

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}پنل کاربری | زنگ{% endblock %}
+{% block body_class %}account-page{% endblock %}
+
+{% block body %}
+<header class="account-header">
+    <div class="container account-header-inner">
+        <a href="{{ url_for('home.index') }}" class="brand">
+            <span class="brand-mark">ز</span>
+            <span class="brand-name">زنگ</span>
+        </a>
+        <nav class="account-nav">
+            <a href="{{ url_for('chat_room.chatroom') }}" class="btn btn-ghost">بازگشت به گفتگوها</a>
+            <a href="{{ url_for('chat_room.logout') }}" class="btn btn-outline">خروج</a>
+        </nav>
+    </div>
+</header>
+
+<main class="account-main container">
+    <section class="account-hero">
+        <span class="account-avatar">{{ user.username[0] | upper }}</span>
+        <div class="account-hero-info">
+            <h1>{{ user.username }}</h1>
+            <p>{{ user.email }}</p>
+            <span class="account-since">عضو از {{ user.created_at.strftime('%Y/%m/%d') }}</span>
+        </div>
+    </section>
+
+    <div class="account-grid">
+
+        <section class="account-card" id="theme-card">
+            <h2 class="account-card-title">🎨 تم سایت</h2>
+            <p class="account-card-hint">ظاهر مورد علاقه‌ات را انتخاب کن. انتخاب تو ذخیره می‌شود.</p>
+            <div class="theme-options" id="theme-options">
+                <button class="theme-option" data-theme="zang" type="button">
+                    <span class="theme-swatch swatch-zang"></span>
+                    <span class="theme-option-name">زنگ (پیش‌فرض)</span>
+                </button>
+                <button class="theme-option" data-theme="dark" type="button">
+                    <span class="theme-swatch swatch-dark"></span>
+                    <span class="theme-option-name">تیره</span>
+                </button>
+                <button class="theme-option" data-theme="light" type="button">
+                    <span class="theme-swatch swatch-light"></span>
+                    <span class="theme-option-name">روشن</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="account-card">
+            <h2 class="account-card-title">👤 اطلاعات حساب</h2>
+            <p class="account-card-hint">نام کاربری و ایمیل خود را ویرایش کن.</p>
+            <form class="account-form" id="profile-form">
+                <label class="account-field">
+                    <span>نام کاربری</span>
+                    <input type="text" id="profile-username" value="{{ user.username }}" maxlength="50" required>
+                </label>
+                <label class="account-field">
+                    <span>ایمیل</span>
+                    <input type="email" id="profile-email" value="{{ user.email }}" maxlength="120" required>
+                </label>
+                <button type="submit" class="btn btn-primary btn-block" id="profile-submit">ذخیره تغییرات</button>
+            </form>
+        </section>
+
+        <section class="account-card">
+            <h2 class="account-card-title">🔒 تغییر رمز عبور</h2>
+            <p class="account-card-hint">برای امنیت بیشتر، رمز عبورت را به‌روز نگه دار.</p>
+            <form class="account-form" id="password-form">
+                <label class="account-field">
+                    <span>رمز عبور فعلی</span>
+                    <input type="password" id="password-current" autocomplete="current-password" required>
+                </label>
+                <label class="account-field">
+                    <span>رمز عبور جدید</span>
+                    <input type="password" id="password-new" minlength="8" autocomplete="new-password" required>
+                </label>
+                <label class="account-field">
+                    <span>تکرار رمز عبور جدید</span>
+                    <input type="password" id="password-confirm" minlength="8" autocomplete="new-password" required>
+                </label>
+                <button type="submit" class="btn btn-primary btn-block" id="password-submit">تغییر رمز عبور</button>
+            </form>
+        </section>
+
+        <section class="account-card account-card-info">
+            <h2 class="account-card-title">ℹ️ خلاصه فعالیت</h2>
+            <ul class="account-stats">
+                <li><span>تعداد گفتگوها</span><strong id="stat-chats">—</strong></li>
+                <li><span>تعداد پیام‌ها</span><strong id="stat-messages">—</strong></li>
+            </ul>
+            <p class="account-card-hint">این آمار از فعالیت‌های تو در زنگ ساخته شده است.</p>
+        </section>
+
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/account.js') }}"></script>
+{% endblock %}

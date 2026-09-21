@@ -164,6 +164,34 @@ body::before {
     padding: 9px 12px;
 }
 
+a.user-chip.account-btn {
+    flex: 1;
+    padding: 6px 8px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: var(--transition);
+}
+
+a.user-chip.account-btn:hover {
+    background: var(--surface-2);
+    border-color: var(--border);
+}
+
+.account-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline-start: auto;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+a.user-chip.account-btn:hover .account-btn-icon {
+    color: var(--primary-soft);
+    transform: rotate(35deg);
+}
+
 .chat-item.channel {
     border: 1px solid transparent;
 }
