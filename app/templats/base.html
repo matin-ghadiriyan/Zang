@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/zang-theme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/realtime.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/polish.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-pro.css') }}">
     {% if current_user is defined and current_user %}<script>document.documentElement.dataset.theme = "{{ current_user.theme or 'zang' }}";</script>{% endif %}
     {% block head %}{% endblock %}
 </head>

@@ -10,7 +10,7 @@
             <span class="brand-mark">ز</span>
             <span class="brand-name">زنگ</span>
         </a>
-        <nav class="landing-nav">
+        <nav class="landing-nav" aria-label="ناوبری اصلی">
             <a href="{{ url_for('login_register.login') }}" class="btn btn-ghost">ورود</a>
             <a href="{{ url_for('login_register.register') }}" class="btn btn-primary">ثبت‌نام</a>
         </nav>
@@ -31,6 +31,11 @@
                     <a href="{{ url_for('login_register.register') }}" class="btn btn-primary btn-lg">شروع کن</a>
                     <a href="{{ url_for('login_register.login') }}" class="btn btn-outline btn-lg">حساب دارم</a>
                 </div>
+                <ul class="hero-highlights" aria-label="مزیت‌های زنگ">
+                    <li><span aria-hidden="true">⚡</span> راه‌اندازی سریع</li>
+                    <li><span aria-hidden="true">🔒</span> حساب امن</li>
+                    <li><span aria-hidden="true">🎨</span> تم قابل تغییر</li>
+                </ul>
             </div>
             <div class="hero-visual">
                 <div class="chat-preview zang-preview">

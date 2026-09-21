@@ -26,14 +26,37 @@
         <form method="POST" action="{{ url_for('login_register.login') }}" class="auth-form" id="login-form" novalidate>
             <div class="form-group">
                 <label for="username">نام کاربری</label>
-                <input type="text" id="username" name="username" placeholder="نام کاربری خود را وارد کنید" required autocomplete="username">
+                <div class="input-wrap">
+                    <span class="input-icon" aria-hidden="true">👤</span>
+                    <input type="text" id="username" name="username" placeholder="نام کاربری خود را وارد کنید" required autocomplete="username">
+                </div>
             </div>
             <div class="form-group">
-                <label for="password">رمز عبور</label>
-                <input type="password" id="password" name="password" placeholder="رمز عبور خود را وارد کنید" required autocomplete="current-password">
+                <div class="label-row">
+                    <label for="password">رمز عبور</label>
+                    <a href="#" tabindex="-1" aria-hidden="true">فراموش کرده‌ای؟</a>
+                </div>
+                <div class="input-wrap">
+                    <span class="input-icon" aria-hidden="true">🔒</span>
+                    <input type="password" id="password" name="password" placeholder="رمز عبور خود را وارد کنید" required autocomplete="current-password">
+                    <button type="button" class="pw-toggle" data-target="password" aria-label="نمایش رمز عبور">👁️</button>
+                </div>
+            </div>
+            <div class="auth-options">
+                <label class="check">
+                    <input type="checkbox" name="remember" value="1">
+                    <span class="box" aria-hidden="true"></span>
+                    مرا به خاطر بسپار
+                </label>
             </div>
             <button type="submit" class="btn btn-primary btn-block btn-lg">ورود</button>
         </form>
+
+        <div class="auth-trust" aria-label="ویژگی‌های امنیتی">
+            <span><span aria-hidden="true">🔒</span> اتصال امن</span>
+            <span><span aria-hidden="true">⚡</span> ورود سریع</span>
+            <span><span aria-hidden="true">🎨</span> تم دلخواه</span>
+        </div>
 
         <p class="auth-footer">
             حساب نداری؟
@@ -43,6 +66,21 @@
     <div class="auth-side">
         <h2>به زنگ خوش آمدی</h2>
         <p>جایی برای گفتگوهای سریع، امن و زیبا.</p>
+        <ul class="auth-side-list">
+            <li><span class="tick" aria-hidden="true">✓</span> گفتگوی بلادرنگ و بدون تأخیر</li>
+            <li><span class="tick" aria-hidden="true">✓</span> کانال‌های عمومی و گروهی</li>
+            <li><span class="tick" aria-hidden="true">✓</span> انتخاب تم و شخصی‌سازی ظاهر</li>
+        </ul>
+        <div class="auth-side-proof">
+            <span class="avatar-stack" aria-hidden="true">
+                <span>ز</span><span>ن</span><span>گ</span>
+            </span>
+            <p>به جمع کاربران زنگ بپیوند</p>
+        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 {% endblock %}
