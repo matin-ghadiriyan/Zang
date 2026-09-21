@@ -1,0 +1,97 @@
+/* ==================== Zang v0.3 | Realtime UI ==================== */
+
+.zang-version-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 22px;
+    padding: 0 8px;
+    margin-right: 6px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: #fff;
+    background: linear-gradient(135deg, #ef3340, #f5b700);
+    box-shadow: 0 5px 15px rgba(239, 51, 64, .28);
+}
+
+#conversation-status.realtime-ok {
+    color: #4ade80;
+}
+
+#conversation-status.realtime-warn {
+    color: #fbbf24;
+}
+
+.message {
+    position: relative;
+}
+
+.message-live-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 4px;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+.message:hover .message-live-actions,
+.message:focus-within .message-live-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.message.mine .message-live-actions {
+    justify-content: flex-end;
+}
+
+.message.other .message-live-actions {
+    justify-content: flex-start;
+}
+
+.message-live-action {
+    width: 27px;
+    height: 27px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    background: rgba(15, 23, 42, .62);
+    color: var(--text-muted);
+    font-size: .78rem;
+    line-height: 1;
+    transition: .18s ease;
+}
+
+.message-live-action:hover {
+    background: rgba(255, 255, 255, .08);
+    color: var(--text);
+    transform: translateY(-1px);
+}
+
+.message-live-action.danger:hover {
+    color: #fecaca;
+    background: rgba(239, 68, 68, .16);
+    border-color: rgba(239, 68, 68, .22);
+}
+
+.message-removing {
+    opacity: 0;
+    transform: scale(.96);
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+.zang-realtime .send-btn {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, .08), 0 8px 22px rgba(239, 51, 64, .26);
+}
+
+@media (hover: none) {
+    .message-live-actions {
+        opacity: .72;
+        transform: none;
+    }
+}
