@@ -4,6 +4,8 @@ Flask-WTF==1.2.2
 WTForms==3.2.1
 Flask-Migrate==4.1.0
 Flask-Limiter==3.12
+Flask-Sock==0.7.0
+simple-websocket==1.1.0
 bleach==6.2.0
 python-dotenv==1.1.0
 email-validator==2.2.0
